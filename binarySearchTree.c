@@ -83,6 +83,16 @@ void print_reverse_inorder(node* root) {
     print_reverse_inorder(root->left);
 }
 
+// Print the words in the tree in postorder
+void print_postorder(node* root) {
+    if (root == NULL) {
+        return;
+    }
+    print_postorder(root->left);
+    print_postorder(root->right);
+    printf("%s %d Time%s\n", root->word, root->count, root->count == 1 ? "" : "s");
+}
+
 void search_word(node* root, char* word, int depth) {
     // Start at the root of the tree
     node* curr = root;
@@ -185,13 +195,14 @@ int main(int argc, char** argv) {
 
     // Loop until the user wants to exit
     int option = 0;
-    while (option != 5) {
+    while (option != 6) {
         printf("\nChoose an option:\n");
         printf("1. Print different words\n");
         printf("2. Print different words in alphabetical order\n");
         printf("3. Print words in reverse alphabetical order\n");
-        printf("4. Search word\n");
-        printf("5. Exit\n\n");
+        printf("4. Print words in the tree in postorder\n");
+        printf("5. Search word\n");
+        printf("6. Exit\n\n");
         printf("Your choice is: ");
 
         scanf("%d", &option);
@@ -199,7 +210,7 @@ int main(int argc, char** argv) {
         switch (option) {
             case 1:
                 // Print the different words in the tree
-                printf("Printing different words\n");
+                printf("Printing different words:\n");
                 print_words_non(root);
                 break;
             case 2:
@@ -214,6 +225,11 @@ int main(int argc, char** argv) {
                 printf("\n");
                 break;
             case 4:
+                // Print the words in the tree in postorder
+                printf("Printing the words in the tree in postorder:\n");
+                print_postorder(root); 
+                break;
+            case 5:
                 // Search for a word in the tree
                 printf("\n");
                 char word[128];
@@ -222,7 +238,7 @@ int main(int argc, char** argv) {
                 // Call search_word with the root of the tree, the word to search for, and the initial depth (0)
                 search_word(root, word, 0);
                 break;
-            case 5:
+            case 6:
                 // Exit the program
                 break;
             default:
